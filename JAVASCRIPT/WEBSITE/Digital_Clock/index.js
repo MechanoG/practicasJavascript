@@ -1,0 +1,1 @@
+alert("bienvnenido a el reloj digital 0.0");

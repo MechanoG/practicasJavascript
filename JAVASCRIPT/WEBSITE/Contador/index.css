@@ -1,0 +1,33 @@
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.tit {
+    font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.cont { 
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+.button{
+    background-color: aqua;
+    color: black;
+    border-color: black;
+    font-size: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: rgb(0, 140, 255);
+}
+

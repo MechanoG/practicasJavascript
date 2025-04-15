@@ -33,10 +33,22 @@ function start(){
 }
 
 function stop(){
+    if(isRunning){
+        clearInterval(timer);
+        elapsedTime = Date.now() - starTime;
+        isRunning = false;
+
+    }
     
 }
 
 function reset(){
+
+    clearInterval(timer);
+    starTime = 0;
+    elapsedTime = 0;
+    isRunning = false
+    display.textContent = "00:00:00:00"
 
 }
 
@@ -62,4 +74,3 @@ function update(){
 }
 
 
-start();

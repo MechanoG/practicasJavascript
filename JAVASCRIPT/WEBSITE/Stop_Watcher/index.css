@@ -1,4 +1,13 @@
-#whatchContainer{
+body{
     display: flex;
-    
+    flex-direction: column;
+    align-items: center;
+
 }
+
+#myH1{
+    font-size: 4rem;
+    font-family: Arial, sans-serif;
+    color: hsl(0, 0%, 25%);
+}
+

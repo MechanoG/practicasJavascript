@@ -1,8 +1,18 @@
+body{
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: hsl(0, 0%, 95%);
 
+}
 #container{
-  
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: hsl(0, 0%, 15%);
     border-radius: 15px;
     max-width: 500px;
+    overflow: hidden;
     
 }
 #display{
@@ -11,18 +21,10 @@
     color: white;
     font-size: 5rem;
     text-align: left;
-    border: non;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(46, 44, 44);
-    padding:0px ;
     border: none;
-    overflow: hidden;
-        
-
+    background-color: hsl(0, 0%, 20%);       
 }
 #buttons{
-    
-    background-color: rgb(27, 26, 26);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -33,16 +35,29 @@ button{
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: rgb(46, 44, 44);
+    background-color: hsl(0, 0%, 30%);
     border: none;
     margin: 5px;
     cursor: pointer;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 3rem;
     font-weight: bold;
 }
 
 button:hover{
-    background-color: rgb(97, 92, 92);;
+    background-color: hsl(0, 0%, 40%);
+}
+button:active{
+    background-color: hsl(0, 0%, 50%);
+}
+
+.opetor-btn{
+    background-color: hsl(35, 100%, 55%);
+}
+
+.opetor-btn:hover{
+    background-color: hsl(35, 100%, 65%);
+}
+.opetor-btn:active{
+    background-color: hsl(35, 100%, 75%);
 }

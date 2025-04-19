@@ -7,36 +7,33 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <div id="container">
 
         <input id="display" readonly>
     
         <div id="buttons">
 
-            <button>+</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>-</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>*</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>/</button>
-            <button>0</button>
-            <button>.</button>
-            <button>=</button>
-            <button>C</button>
+            <button onclick="showDisplay(`+`)" class="opetor-btn">+</button>
+            <button onclick="showDisplay(`7`)">7</button>
+            <button onclick="showDisplay(`8`)">8</button>
+            <button onclick="showDisplay(`9`)">9</button>
+            <button onclick="showDisplay(`-`)"class="opetor-btn">-</button>
+            <button onclick="showDisplay(`4`)">4</button>
+            <button onclick="showDisplay(`5`)">5</button>
+            <button onclick="showDisplay(`6`)">6</button>
+            <button onclick="showDisplay(`*`)"class="opetor-btn">*</button>
+            <button onclick="showDisplay(`1`)">1</button>
+            <button onclick="showDisplay(`2`)">2</button>
+            <button onclick="showDisplay(`3`)">3</button>
+            <button onclick="showDisplay(`/`)" class="opetor-btn">/</button>
+            <button onclick="showDisplay(`0`)">0</button>
+            <button onclick="showDisplay(`.`)">.</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="clearDisplay()" class="opetor-btn">C</button>
         </div>
         
     </div>
-    
 
-
-    <script type="module" src="index.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

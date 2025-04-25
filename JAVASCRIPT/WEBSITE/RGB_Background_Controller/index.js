@@ -14,11 +14,8 @@ function setBackgroundColor(){
     let alphaValue = (Number(alphaSlider.value)/100).toFixed(1);
 
     console.log(alphaValue)
-
-    let color = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
-    console.log(color)
     
-    let colorA = `rgb(${redValue}, ${greenValue}, ${blueValue}, ${alphaValue})`;
+    let color= `rgb(${redValue}, ${greenValue}, ${blueValue}, ${alphaValue})`;
     
     document.body.style.background = colorA;
 

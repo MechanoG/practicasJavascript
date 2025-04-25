@@ -10,9 +10,10 @@
     <div id="container">
         <h1>RGB BACKGROUND CONTROLLER</h1>
         <div class="controllers">
-            <input type="range" min="0" max="100" value="0"></input>
-            <input type="range" min="0" max="100" value="0"></input>
-            <input type="range" min="0" max="100" value="0"></input>
+            <input type="range" min="0" max="255" value="0" id="redSlider" oninput="setBackgroundColor()"></input>
+            <input type="range" min="0" max="255" value="0" id="greenSlider" oninput="setBackgroundColor()"></input>
+            <input type="range" min="0" max="255" value="0" id="blueSlider" oninput="setBackgroundColor()"></input>
+            <input type="range" min="0" max="100" value="0" id="alphaSlider" oninput="setBackgroundColor()"></input>
         </div>
     </div>
     

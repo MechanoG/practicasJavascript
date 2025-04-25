@@ -19,10 +19,30 @@ body{
     border: solid 5px black ;
     border-radius: 25px;
     gap:0px;
+    background-color: rgb(241, 233, 233);
+    padding-bottom: 10px;
     
+}
+h1{
+    color: rgb(90, 67, 10);
+    margin-top: 10px;
+    margin-bottom: 0px;
+
 }
 .controllers{
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
     
 }
+#redSlider{
+    accent-color: red;
+}
+#greenSlider{
+    accent-color: green;
+}
+#blueSlider{
+    accent-color: blue;
+}
+#alphaSlider{}

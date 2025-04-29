@@ -3,19 +3,61 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #c7c7c7;
+    background-color: #e2eceb;
+    font-family: sans-serif;
+    
+}
+h1{
+    color: rgb(9, 156, 161);;
 }
 .review{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: solid black 2px;
+    border: none;
     width: 600px;
-    height: 450px;
+    height: 500px;
     background-color: #FFFF;
+    box-shadow: 10px 10px 5px lightblue;
+    gap: 0px;
 }
 img{
     display: block;
     border-radius: 50%;
+    margin-top: 10px;
+    width: 150px;
+    height: 150px;
+    
+    
 }
+#autor{
+    margin-top: 10px;   
+}
+#job{
+    color: rgb(9, 156, 161);
+    font-weight: bold;
+
+    margin-top: 0px;
+}
+#info{
+    width: 400px ;
+
+    margin-top: 0px;
+}
+#buttonContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0px;
+    gap: 5px;
+}
+.changeButon{
+    background-color: rgb(9, 156, 161);
+    border: none;
+}
+.changeButon:hover{
+    background-color: rgb(5, 84, 87);
+}
+
+

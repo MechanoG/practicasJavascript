@@ -22,21 +22,21 @@
             consectetur adipiscing elit. Nunc fermentum mi ex, non 
             feugiat metus congue nec. Sed in consectetur est. Proin 
             scelerisque dignissim dolor id blandit. Sed dignissim 
-            convallis blandit. Sed ac aliquam elit. In orci tortor, 
-            consequat id laoreet vitae, sollicitudin non risus.
+            convallis blandit. Sed ac aliquam elit.
         </p> 
         
         <div id = "buttonContainer">
-            <button class="changeButon" id="previus"> 
-                ◀
+            <div>
+                <button class="changeButon" id="previus" onclick="prevReview()"> 
+                    ◀
+                </button>
+                <button class="changeButon" id="next" onclick="nextReview()">
+                    ▶
+                </button>
+            </div>
+            <button class="changeButon" id="Random" onclick="randomReview()">
+                Surprise
             </button>
-            <button class="changeButon" id="next">
-                ▶
-            </button>
-
-            <button class="changeButon" id="Random">Surprise</button>
-
-
         </div>
 
     </article>

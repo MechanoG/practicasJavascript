@@ -134,6 +134,8 @@ let names = users.map(item => item.name);
 */
 
 //Task 5
+
+/*
 let john = { name: "John", surname: "Smith", id: 1 };
 let pete = { name: "Pete", surname: "Hunt", id: 2 };
 let mary = { name: "Mary", surname: "Key", id: 3 };
@@ -145,7 +147,7 @@ let usersMapped = users.map(user=>({
     id: user.id
 }));
 
-
+*/
 
 /*
 usersMapped = [
@@ -174,4 +176,29 @@ let usersMapped = users.map(user => ({
 Now fine.
 
 */
+
+//Task6 - Sort users by age
+
+/*
+function sortByAge(array){
+    
+    array.sort((a, b) => a.age - b.age);
+
+}
+
+let john = { name: "John", age: 25 };
+let pete = { name: "Pete", age: 30 };
+let mary = { name: "Mary", age: 28 };
+
+let arr =  [john, pete, mary];
+
+sortByAge(arr);
+
+// now: [john, mary, pete]
+alert(arr[0].name); // John
+alert(arr[1].name); // Mary
+alert(arr[2].name); // Pete
+
+*/
+
 

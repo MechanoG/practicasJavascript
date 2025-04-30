@@ -200,5 +200,73 @@ alert(arr[1].name); // Mary
 alert(arr[2].name); // Pete
 
 */
+//Task 7 - Shufffle An Array
+
+/*
+function shuffle(array){
+
+    for (let i = array.length - 1; i > 0; i--){
+        let j = Math.floor(Math.random()*(i+1)); //Random Index
+        // swap elements array[i] and array[j]
+        // we use "destructuring assignment" syntax to achieve that
+        // you'll find more details about that syntax in later chapters
+        // same can be written as:
+        // let t = array[i]; array[i] = array[j]; array[j] = t
+        [array[i], array[j]] = [array[j], array[i]];
+        }
+}
+
+let arr = [1, 2, 3];
+
+shuffle(arr);
+alert(arr);
+// arr = [3, 2, 1]
+
+shuffle(arr);
+alert(arr);
+// arr = [2, 1, 3]
+
+shuffle(arr);
+alert(arr);
+// arr = [3, 1, 2]
+// ...
+*/
+
+//Task 8 Get Average age;
+/*
+function getAverageAge(users){
+
+    return users.reduce((prev,users) => prev + users.age, 0)/users.length;
+};
+
+let john = { name: "John", age: 25 };
+let pete = { name: "Pete", age: 30 };
+let mary = { name: "Mary", age: 29 };
+
+let arr = [ john, pete, mary ];
+
+alert( getAverageAge(arr) ); // (25 + 30 + 29) / 3 = 28
+*/
+
+//Task 9 filter unique
+function unique(arr) {
+    let result = []
+    
+    for (let str of arr){
+        if(!result.includes(str))
+    }
+
+    
+
+    return salida;
+  }
+  
+  let strings = ["Hare", "Krishna", "Hare", "Krishna",
+    "Krishna", "Krishna", "Hare", "Hare", ":-O"
+  ];
+  
+  alert( unique(strings) ); // Hare, Krishna, :-O
+
+
 
 

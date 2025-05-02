@@ -249,16 +249,18 @@ alert( getAverageAge(arr) ); // (25 + 30 + 29) / 3 = 28
 */
 
 //Task 9 filter unique
+
+/*
 function unique(arr) {
     let result = []
     
     for (let str of arr){
-        if(!result.includes(str))
+        if(!result.includes(str)){
+            result.push(str);
+        }
     }
 
-    
-
-    return salida;
+    return result;
   }
   
   let strings = ["Hare", "Krishna", "Hare", "Krishna",
@@ -266,7 +268,37 @@ function unique(arr) {
   ];
   
   alert( unique(strings) ); // Hare, Krishna, :-O
+*/
+
+//Task 10 Create keyed object from array.
+//use .reduce method 
+
+let users = [
+    {id: 'john', name: "John Smith", age: 20},
+    {id: 'ann', name: "Ann Smith", age: 24},
+    {id: 'pete', name: "Pete Peterson", age: 31},
+];
+
+function groupById(array){
+   return array.reduce((obj, value) => {
+    obj[value.id] = value;
+    return obj;
+   }, {})
+}
+
+let usersById = groupById(users);
+
+console.log(usersById);
 
 
+/*
+// after the call we should have:
+
+usersById = {
+  john: {id: 'john', name: "John Smith", age: 20},
+  ann: {id: 'ann', name: "Ann Smith", age: 24},
+  pete: {id: 'pete', name: "Pete Peterson", age: 31},
+}
+*/
 
 

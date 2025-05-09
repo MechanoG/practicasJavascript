@@ -108,7 +108,7 @@ function getSecondsToTOMORROW(){
 alert(getSecondsToTOMORROW()); */
 
 //Task 6: Format Relative Date 
-
+/*
 function formatDate(date){
 
     let now = new Date() - date;
@@ -132,4 +132,4 @@ alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
 // yesterday's date like 31.12.16 20:00
 alert( formatDate(new Date(new Date - 86400 * 1000)) );
 
-
+*/

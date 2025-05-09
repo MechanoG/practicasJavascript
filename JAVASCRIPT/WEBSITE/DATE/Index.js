@@ -93,6 +93,7 @@ function getSecondsTodays(){
 alert(getSecondsTodays());  */
 
 //TASK 5 HOW MANY SECONDS TILL TOMORROWW?
+/*
 function getSecondsToTOMORROW(){
 
     let now = new Date();
@@ -104,6 +105,31 @@ function getSecondsToTOMORROW(){
     return Math.round(diff/1000);  
 } 
 
-alert(getSecondsToTOMORROW());
+alert(getSecondsToTOMORROW()); */
 
 //Task 6: Format Relative Date 
+
+function formatDate(date){
+
+    let now = new Date() - date;
+
+    if (now < 1000){
+        return "rigth now";
+    }else if( now < 60*1000){
+        return `${now/1000} sec.ago`;
+    }else
+
+    return now;
+
+}
+
+alert( formatDate(new Date(new Date - 1)) ); // "right now"
+
+alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 sec. ago"
+
+alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 min. ago"
+
+// yesterday's date like 31.12.16 20:00
+alert( formatDate(new Date(new Date - 86400 * 1000)) );
+
+

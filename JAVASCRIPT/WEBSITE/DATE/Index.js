@@ -46,3 +46,64 @@ function getLocalDay(){
 let date = new Date(2012, 0, 3);  // 3 Jan 2012
 alert( getLocalDay(date) );       // tuesday, should show 2
 */
+
+//TASK WHICK DAY OF THE MONS WAS MANY YERAS AGO?
+/*
+function getDateAgo(date, daysAgo){
+
+    const dayAgoMil = daysAgo*24*3600*1000;
+
+    const wantedDay = new Date(date - dayAgoMil);
+
+    return wantedDay;
+
+}
+
+let date = new Date(2015, 0, 2);
+
+alert( getDateAgo(date, 1) ); // 1, (1 Jan 2015)
+alert( getDateAgo(date, 2) ); // 31, (31 Dec 2014)
+alert( getDateAgo(date, 365) ); // 2, (2 Jan 2014) */
+
+//TASK 3 LAST DAY OF MONTH?
+/*
+function getLastDayOfMonth(year, mont){
+
+    let date = new Date(year, mont + 1, 0);
+    return date.getDate();
+
+}
+
+alert(getLastDayOfMonth(2012, 1));
+
+normally dates start from 1, but when we pass 0, then it means 
+one day before 1st day of the month. in other worlds: "the last 
+day of the previus month" */
+
+//TASK 4 HOW ,AMY SECONDS HAVE PASSED TODAY?
+
+/*
+function getSecondsTodays(){
+
+    let today = new Date();
+
+    return today.getHours()*3600 + today.getMinutes()*60 + today.getSeconds();  
+} 
+
+alert(getSecondsTodays());  */
+
+//TASK 5 HOW MANY SECONDS TILL TOMORROWW?
+function getSecondsToTOMORROW(){
+
+    let now = new Date();
+
+    let tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1)
+
+    diff = tomorrow - now;
+
+    return Math.round(diff/1000);  
+} 
+
+alert(getSecondsToTOMORROW());
+
+//Task 6: Format Relative Date 

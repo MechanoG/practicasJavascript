@@ -49,10 +49,15 @@ function drawCircle(width, height, pincel, color){
     pincel.fill();
     pincel.stroke();
 }
-/*
-drawFigure(greySquare);
-drawFigure(greyCircle);
-*/
+
+function drawHear(){
+    
+}
+
+
+
+
+
 
 const lapiz = greyHeart.getContext("2d");
 lapiz.beginPath();

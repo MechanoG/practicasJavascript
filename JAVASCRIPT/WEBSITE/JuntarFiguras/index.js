@@ -9,12 +9,17 @@ const greyHeart = document.getElementById("greyHeart");
 const greyStar = document.getElementById("greyStar");
 const greyCross = document.getElementById("greyCross");
 
+//Se crean los elementos que seran arrastrables por la pantalla
+const dragCircle = document.createElement('canvas');
+dragCircle.setAttribute('id','dragCircle');
+
+
+
 //Colores
 const gris = "grey";
 const red = "red";
 const green = "green";
 const blue = "blue";
-
 
 function drawFigure(canvas){
     if(!canvas){
@@ -161,5 +166,8 @@ function startPage(){
 
 startPage();
 
+let ctx = dragCircle.getContext("2d");
+ctx.fillStyle = "red";
+ctx.fillRect(0,0,150,150);
 
-
+document.body.appendChild(dragCircle);

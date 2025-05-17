@@ -31,7 +31,21 @@ function drawFigure(canvas){
         case "greySquare":
                 drawSquare(canvas.width, canvas.height,lapiz, "grey");
             break;
-    
+        case "greySquare":
+                drawSquare(canvas.width, canvas.height,lapiz, "grey");
+            break;
+        case "greyHeart":
+                drawHeart(canvas.width, canvas.height,lapiz, "grey");
+            break;    
+        case "greyTriangle":
+                drawTriangle(canvas.width, canvas.height,lapiz, "grey");
+            break;
+        case "greyStar":
+                drawStar(canvas.width, canvas.height,lapiz, "grey");
+            break;
+        case "greyCross":
+                drawCross(canvas.width, canvas.height,lapiz, "grey");
+            break;    
         default:
             break;
     }
@@ -50,23 +64,102 @@ function drawCircle(width, height, pincel, color){
     pincel.stroke();
 }
 
-function drawHear(){
-    
+function getHeart(width, height, r, paso){
+
+    let puntos = [];
+    for (let a = 0; a < 2 * Math.PI; a+= paso){
+        let p = {};
+        p.x = width + 16 * r * (Math.sin(a) * Math.sin(a) *Math.sin(a));
+        p.y = 
+            height - 
+            13 * r * Math.cos(a) +
+            5 * r * Math.cos(2 * a) +
+            2 * r * Math.cos(3 * a) +
+            1 * r * Math.cos(4 * a);  
+        puntos.push(p); 
+    }
+    return puntos;  
 }
 
+function drawHeart(width, height, pincel, color){
+    const canvasX = (width/2); 
+    const canvasY = (height/2) - 10;
 
+    let points =  getHeart(canvasX, canvasY, 4.7, 0.05);
+    
+    //empieza el trazado
+    pincel.beginPath();
+    //muebe al puntero al primer punto del array
+    pincel.moveTo(points[0].x, points[0].y);
+    //Dibuja el corazon
+    points.forEach( p=> {
+        pincel.lineTo(p.x, p.y)
+    });
+    //Cierra el trazado
+    pincel.closePath();
+    //Define el color
+    pincel.fillStyle = color;
+    //Rellena la figura con color
+    pincel.fill();
+    
+    //Dibuja el corazon
+    pincel.stroke();
+}
 
+function drawTriangle(width, height, pincel, color){
+    pincel.beginPath();
+    pincel.moveTo((width/2), 0);
+    pincel.lineTo(0, height);
+    pincel.lineTo(width, height);
+    pincel.lineTo((width/2), 0);
+    pincel.closePath();
+    pincel.fillStyle = color;
+    pincel.fill();
+    pincel.stroke();
+}
 
+function drawTriangle(width, height, pincel, color){
+    pincel.beginPath();
+    pincel.moveTo((width/2), 0);
+    pincel.lineTo(0, height);
+    pincel.lineTo(width, height);
+    pincel.lineTo((width/2), 0);
+    pincel.closePath();
+    pincel.fillStyle = color;
+    pincel.fill();
+    pincel.stroke();
+}
 
+function drawStar(width, height, pincel, color){
+    pincel.beginPath();
+    pincel.moveTo((width/2), 0);
+    pincel.lineTo(width*0.15, height);
+    pincel.lineTo(width, height*0.38);
+    pincel.lineTo(0, height*0.38);
+    pincel.lineTo(width*0.85, height );
+    pincel.closePath();
+    pincel.fillStyle = color;
+    pincel.fill();
+    pincel.stroke();
+}
 
-const lapiz = greyHeart.getContext("2d");
-lapiz.beginPath();
-lapiz.moveTo(150/2, 25);
-lapiz.bezierCurveTo(0, 36, 0, 125, 75, 150);
-lapiz.stroke();
+function drawCross(width, height, pincel, color){
+    pincel.fillStyle = color;
+    pincel.fillRect((width/3), 0, (width/3), height);
+    pincel.fillRect(0, (height/3), width, (height/3));
 
+}
 
+function startPage(){
+    drawFigure(greyCircle);
+    drawFigure(greySquare);
+    drawFigure(greyHeart);
+    drawFigure(greyTriangle);
+    drawFigure(greyStar);
+    drawFigure(greyCross);
+}
 
+startPage();
 
 
 

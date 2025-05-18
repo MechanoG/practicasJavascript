@@ -1,13 +1,13 @@
-body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 #myCanvas{
+    position: absolute;
+    top: 50%;
+    left: 50%;
     border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    transform: translate(-50%, -50%);
     gap: 100px;
     padding: 25px; 
 }

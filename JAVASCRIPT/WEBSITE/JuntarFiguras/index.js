@@ -9,18 +9,28 @@ const greyHeart = document.getElementById("greyHeart");
 const greyStar = document.getElementById("greyStar");
 const greyCross = document.getElementById("greyCross");
 
+//Funcion para crear nuevas piezas
+function createPiece(idName){
+    const newPiece = document.createElement('canvas');
+    newPiece.width = 125;
+    newPiece.height = 125;
+    newPiece.setAttribute('id', idName);
+    newPiece.style.position = "absolute";
+    newPiece.style.left =Math.floor(Math.random() * (document.documentElement.clientWidth-newPiece.width + 1))+"px";
+    newPiece.style.top =Math.floor(Math.random() * (document.documentElement.clientHeight-newPiece.height +1))+"px";
+    return newPiece;
+}
+
 //Se crean los elementos que seran arrastrables por la pantalla
-const dragCircle = document.createElement('canvas');
-dragCircle.setAttribute('id','dragCircle');
+const dragCircle = createPiece('dragCircle');
+const dragSquare = createPiece('dragSquare');
+const dragTriangle = createPiece('dragTriangle');
+const dragHeart = createPiece('dragHeart');
+const dragStar = createPiece('dragStar');
+const dragCross = createPiece('dragCross');
 
 
-
-//Colores
-const gris = "grey";
-const red = "red";
-const green = "green";
-const blue = "blue";
-
+//Funcion que se encarga de tomar el canvas y dibujar la figura correspondiente
 function drawFigure(canvas){
     if(!canvas){
         alert("There is not such a canvas ");
@@ -36,9 +46,6 @@ function drawFigure(canvas){
         case "greySquare":
                 drawSquare(canvas.width, canvas.height,lapiz, "grey");
             break;
-        case "greySquare":
-                drawSquare(canvas.width, canvas.height,lapiz, "grey");
-            break;
         case "greyHeart":
                 drawHeart(canvas.width, canvas.height,lapiz, "grey");
             break;    
@@ -50,7 +57,25 @@ function drawFigure(canvas){
             break;
         case "greyCross":
                 drawCross(canvas.width, canvas.height,lapiz, "grey");
-            break;    
+            break;
+        //Caseos para dibujar los elemetnos a color
+        case "dragCircle":
+                drawCircle(canvas.width/2, canvas.height/2, lapiz, "orange")
+            break;
+        case "dragSquare":
+                drawSquare(canvas.width, canvas.height,lapiz, "blue");
+            break;
+        case "dragTriangle":
+                drawTriangle(canvas.width, canvas.height,lapiz, "green");
+            break;
+        case "dragHeart":
+                drawHeart(canvas.width, canvas.height,lapiz, "red");
+            break;
+        case "dragStar":
+                drawStar(canvas.width, canvas.height, lapiz, "yellow");
+                break;
+        case "dragCross":
+                drawCross(canvas.width, canvas.height,lapiz, "purple")
         default:
             break;
     }
@@ -90,7 +115,7 @@ function drawHeart(width, height, pincel, color){
     const canvasX = (width/2); 
     const canvasY = (height/2) - 10;
 
-    let points =  getHeart(canvasX, canvasY, 4.7, 0.05);
+    let points =  getHeart(canvasX, canvasY, 3.9, 0.05);
     
     //empieza el trazado
     pincel.beginPath();
@@ -156,18 +181,28 @@ function drawCross(width, height, pincel, color){
 }
 
 function startPage(){
+
     drawFigure(greyCircle);
     drawFigure(greySquare);
     drawFigure(greyHeart);
     drawFigure(greyTriangle);
     drawFigure(greyStar);
     drawFigure(greyCross);
+    drawFigure(dragCircle);
+    drawFigure(dragSquare);
+    drawFigure(dragTriangle);
+    drawFigure(dragHeart);
+    drawFigure(dragStar);
+    drawFigure(dragCross);
+   
 }
 
 startPage();
 
-let ctx = dragCircle.getContext("2d");
-ctx.fillStyle = "red";
-ctx.fillRect(0,0,150,150);
 
 document.body.appendChild(dragCircle);
+document.body.appendChild(dragSquare);
+document.body.appendChild(dragTriangle);
+document.body.appendChild(dragHeart);
+document.body.appendChild(dragStar);
+document.body.appendChild(dragCross);

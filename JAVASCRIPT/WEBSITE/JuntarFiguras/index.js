@@ -1,3 +1,8 @@
+/*List of things to do
+-Make the draggeable elements react to a funcion from the body
+-Make the function, to be able to drag any draggeable element 
+on the screem.
+*/
 //--Proyecto: Colocar las figuras correstas en su posicion
 
 //Se inicician los canvas de las figuras iniciales
@@ -18,6 +23,14 @@ function createPiece(idName){
     newPiece.style.position = "absolute";
     newPiece.style.left =Math.floor(Math.random() * (document.documentElement.clientWidth-newPiece.width + 1))+"px";
     newPiece.style.top =Math.floor(Math.random() * (document.documentElement.clientHeight-newPiece.height +1))+"px";
+    
+    newPiece.addEventListener('click', (event) =>{
+        //Se toma el evento que se clickea
+        const target = event.target;
+        alert(target.id);
+        
+    })
+
     return newPiece;
 }
 

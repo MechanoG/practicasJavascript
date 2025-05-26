@@ -1,8 +1,12 @@
-/*List of things to do
--Make the draggeable elements react to a funcion from the body
--Make the function, to be able to drag any draggeable element 
-on the screem.
+/*
+
+List of things to do
+-Make the greypieces to detect when a drageable piece is over them
+-Make the pieze acomodate itself on the greypiece when dropedd while it detec its
+
 */
+
+
 //--Proyecto: Colocar las figuras correstas en su posicion
 
 //Se inicician los canvas de las figuras iniciales
@@ -13,6 +17,9 @@ const greyTriangle = document.getElementById("greyTriangle");
 const greyHeart = document.getElementById("greyHeart");
 const greyStar = document.getElementById("greyStar");
 const greyCross = document.getElementById("greyCross");
+
+//Posible elemetno sobre el que estemeos dejando el elemento drageable
+let currentDroppable = null;
 
 //Funcion para crear nuevas piezas
 function createPiece(idName){
@@ -48,6 +55,30 @@ function createPiece(idName){
 
         function onMouseMove(event){
             moveAt(event.pageX, event.pageY);
+            target.hidden = true;
+            let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+            target.hidden = false;
+            
+            // si clientX/clientY asre out of the window, then thje elementFromPoint return null
+            if(!elemBelow) return;
+
+            //se toma alos miembros de la classe drawable como posible dropeables
+            let droppableBelow = elemBelow.closest('.drawable');
+
+            if(currentDroppable != droppableBelow){
+                //entramos o salimo de arriba de dicho elemento
+                if(currentDroppable){
+                    leaveDroppable(currentDroppable);
+                }
+                currentDroppable = droppableBelow;
+                if (currentDroppable){
+                    enterDroppable(currentDroppable);
+                }
+            }
+                
+
+
+
         }
 
         document.addEventListener('mousemove', onMouseMove);       
@@ -64,6 +95,17 @@ function createPiece(idName){
         target.ondragstart = function(){
             return false;
         }
+
+        function enterDroppable(elem){
+            elem.style.background = 'green';
+
+        }
+        
+        function leaveDroppable(elem){
+            elem.style.background = '';
+
+        }
+
 
     })
     

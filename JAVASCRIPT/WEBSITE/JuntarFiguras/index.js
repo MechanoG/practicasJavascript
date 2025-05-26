@@ -24,13 +24,49 @@ function createPiece(idName){
     newPiece.style.left =Math.floor(Math.random() * (document.documentElement.clientWidth-newPiece.width + 1))+"px";
     newPiece.style.top =Math.floor(Math.random() * (document.documentElement.clientHeight-newPiece.height +1))+"px";
     
-    newPiece.addEventListener('click', (event) =>{
+    //Evento para arrastrar el elemento drageable en 
+    newPiece.addEventListener('mousedown', (event) =>{
         //Se toma el evento que se clickea
         const target = event.target;
-        alert(target.id);
         
-    })
+        //Prepara para mover, hace que zbsoluto and on top by z-index
+        target.style.position = 'absolute';
+        target.style.zIndex = 1000;
 
+        //Toma la posicion sobre el canvas por el cual se recoge el canvas
+        let shiftX = event.clientX - target.getBoundingClientRect().left;
+        let shiftY = event.clientY - target.getBoundingClientRect().top;
+
+        //mueve la pieza a la posicion (pagex, pagey)
+        function moveAt(pageX, pageY){
+            target.style.left = pageX - shiftX + 'px';
+            target.style.top = pageY - shiftY + 'px';
+        }
+
+        //Mueve la posision  de la pieza debajo del puntero
+        moveAt(event.pageX, event.pageY);
+
+        function onMouseMove(event){
+            moveAt(event.pageX, event.pageY);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);       
+
+        function onMouseUp(){
+            document.removeEventListener('mousemove', onMouseMove);
+            //Se 
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+        
+        document.addEventListener('mouseup', onMouseUp);
+
+        // (Opcional) Prevenir el comportamiento nativo de arrastre (drag-and-drop) del navegador
+        target.ondragstart = function(){
+            return false;
+        }
+
+    })
+    
     return newPiece;
 }
 

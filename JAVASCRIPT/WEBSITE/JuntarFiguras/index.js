@@ -1,7 +1,7 @@
 /*
 
 List of things to do
--Make the greypieces to detect when a drageable piece is over them
+-Make the greypieces to detect when thier  drageable piece is over them
 -Make the pieze acomodate itself on the greypiece when dropedd while it detec its
 
 */
@@ -65,6 +65,8 @@ function createPiece(idName){
             //se toma alos miembros de la classe drawable como posible dropeables
             let droppableBelow = elemBelow.closest('.drawable');
 
+            
+
             if(currentDroppable != droppableBelow){
                 //entramos o salimo de arriba de dicho elemento
                 if(currentDroppable){
@@ -72,7 +74,7 @@ function createPiece(idName){
                 }
                 currentDroppable = droppableBelow;
                 if (currentDroppable){
-                    enterDroppable(currentDroppable);
+                    enterDroppable(currentDroppable, target);
                 }
             }
                 
@@ -96,8 +98,15 @@ function createPiece(idName){
             return false;
         }
 
-        function enterDroppable(elem){
-            elem.style.background = 'green';
+        function enterDroppable(dropable, drag){
+            let dropId = dropable.id.slice(4);
+            let dragId = drag.id.slice(4);
+
+            if (dropId == dragId){
+                dropable.style.background = 'green';
+            }
+
+            
 
         }
         
@@ -185,6 +194,7 @@ function drawCircle(width, height, pincel, color){
     pincel.stroke();
 }
 
+//Funcion para obtener los puntos que formaran al corazon
 function getHeart(width, height, r, paso){
 
     let puntos = [];

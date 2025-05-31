@@ -43,8 +43,8 @@ function createPiece(idName){
     newPiece.style.left =Math.floor(Math.random() * (document.documentElement.clientWidth-newPiece.width + 1))+"px";
     newPiece.style.top =Math.floor(Math.random() * (document.documentElement.clientHeight-newPiece.height +1))+"px";
     
-    //Evento para arrastrar el elemento drageable en 
-    newPiece.addEventListener('mousedown', (event) =>{
+    const onClickListener  = (event) =>{
+
         //Se toma el evento que se clickea
         const target = event.target;
         
@@ -130,33 +130,11 @@ function createPiece(idName){
 
                     target.style.left = dragPos.left + 'px';
                     target.style.top = dragPos.top + 'px';
-                    
 
-
+                    newPiece.removeEventListener('mousedown', onClickListener)
                 }
-                
             }
-
             
-            /*
-            // si clientX/clientY asre out of the window, then thje elementFromPoint return null
-            if(!elemBelow) return;
-
-            //se toma alos miembros de la classe drawable como posible dropeables
-            let droppableBelow = elemBelow.closest('.drawable');
-
-            if(currentDroppable != droppableBelow){
-                //entramos o salimo de arriba de dicho elemento
-                if(currentDroppable){
-                    leaveDroppable(currentDroppable);
-                }
-                currentDroppable = droppableBelow;
-                if (currentDroppable){
-                    enterDroppable(currentDroppable, target);
-                } 
-            }
-            */
-
             document.removeEventListener('mousemove', onMouseMove);
             //Se elimina el listener para mouseup, 
             document.removeEventListener('mouseup', onMouseUp);
@@ -169,8 +147,9 @@ function createPiece(idName){
             return false;
         }
 
-        
-    })
+    }
+
+    newPiece.addEventListener('mousedown', onClickListener)
     
     return newPiece;
 }

@@ -1,11 +1,23 @@
 /*
-
 List of things to do
--Make the greypieces to detect when thier  drageable piece is over them
 -Make the pieze acomodate itself on the greypiece when dropedd while it detec its
 
-*/
+-Se suelta el mouse.
+-Se detecta si hay un dropable debajo
+    - No hay, se suelta el draggeable.
+    - Si hay{
+        -Se verifica si el dropable corresponde al drageable
+        - No :se suelta el drageable
+        - Si: {
+            Se elimina el evento que permite presionar el drag
+            Se elimina el evento que permite mover el drag
+            Se suelta el drag
+        } 
+    }
 
+
+
+*/
 
 //--Proyecto: Colocar las figuras correstas en su posicion
 
@@ -65,8 +77,6 @@ function createPiece(idName){
             //se toma alos miembros de la classe drawable como posible dropeables
             let droppableBelow = elemBelow.closest('.drawable');
 
-            
-
             if(currentDroppable != droppableBelow){
                 //entramos o salimo de arriba de dicho elemento
                 if(currentDroppable){
@@ -77,17 +87,78 @@ function createPiece(idName){
                     enterDroppable(currentDroppable, target);
                 }
             }
-                
+        }
 
+        function enterDroppable(dropable, drag){
+            console.log("Entrando a " + dropable.id)
+            let dropId = dropable.id.slice(4);
+            let dragId = drag.id.slice(4);
 
+            console.log(dropable.offsetTop);
+            console.log(dropable.offsetLeft);
 
+            if (dropId == dragId){
+                dropable.style.background = 'green';
+            }
+        }
+        
+        function leaveDroppable(elem){
+            console.log("Saliendo de " + elem.id)
+            elem.style.background = '';
         }
 
         document.addEventListener('mousemove', onMouseMove);       
-
+        
+        //Funcion, que se activa cuando se suelta el mouse
         function onMouseUp(){
+
+            //Nota de estudio: en este caso esta funcion se produce unicamente al soltar el mouse,
+            //por lo tanto es irrelevante si esta entrando o saliendo de un dropable, lo unico que 
+            //importa es si debajo del drag existe un dorpable, y si este corresponde a al drag.
+
+            if(!currentDroppable){
+                console.log("Se solto la tecla en un espacio en blanco ");
+            }else{
+                let drop = currentDroppable.id.slice(4);
+                let drag = target.id.slice(4); 
+                console.log(`Se solto la tecla ${drag}  en: ${drop}`);
+                
+                if(drop == drag){
+                    target.style.position = 'absolute';
+                    
+                    let dragPos =  currentDroppable.getBoundingClientRect();
+
+                    target.style.left = dragPos.left + 'px';
+                    target.style.top = dragPos.top + 'px';
+                    
+
+
+                }
+                
+            }
+
+            
+            /*
+            // si clientX/clientY asre out of the window, then thje elementFromPoint return null
+            if(!elemBelow) return;
+
+            //se toma alos miembros de la classe drawable como posible dropeables
+            let droppableBelow = elemBelow.closest('.drawable');
+
+            if(currentDroppable != droppableBelow){
+                //entramos o salimo de arriba de dicho elemento
+                if(currentDroppable){
+                    leaveDroppable(currentDroppable);
+                }
+                currentDroppable = droppableBelow;
+                if (currentDroppable){
+                    enterDroppable(currentDroppable, target);
+                } 
+            }
+            */
+
             document.removeEventListener('mousemove', onMouseMove);
-            //Se 
+            //Se elimina el listener para mouseup, 
             document.removeEventListener('mouseup', onMouseUp);
         }
         
@@ -98,24 +169,7 @@ function createPiece(idName){
             return false;
         }
 
-        function enterDroppable(dropable, drag){
-            let dropId = dropable.id.slice(4);
-            let dragId = drag.id.slice(4);
-
-            if (dropId == dragId){
-                dropable.style.background = 'green';
-            }
-
-            
-
-        }
         
-        function leaveDroppable(elem){
-            elem.style.background = '';
-
-        }
-
-
     })
     
     return newPiece;
@@ -128,7 +182,6 @@ const dragTriangle = createPiece('dragTriangle');
 const dragHeart = createPiece('dragHeart');
 const dragStar = createPiece('dragStar');
 const dragCross = createPiece('dragCross');
-
 
 //Funcion que se encarga de tomar el canvas y dibujar la figura correspondiente
 function drawFigure(canvas){
@@ -282,7 +335,6 @@ function drawCross(width, height, pincel, color){
 }
 
 function startPage(){
-
     drawFigure(greyCircle);
     drawFigure(greySquare);
     drawFigure(greyHeart);
@@ -295,7 +347,6 @@ function startPage(){
     drawFigure(dragHeart);
     drawFigure(dragStar);
     drawFigure(dragCross);
-   
 }
 
 startPage();

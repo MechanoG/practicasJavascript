@@ -1,24 +1,6 @@
 /*
 List of things to do
--Make the pieze acomodate itself on the greypiece when dropedd while it detec its
-
--Se suelta el mouse.
--Se detecta si hay un dropable debajo
-    - No hay, se suelta el draggeable.
-    - Si hay{
-        -Se verifica si el dropable corresponde al drageable
-        - No :se suelta el drageable
-        - Si: {
-            Se elimina el evento que permite presionar el drag
-            Se elimina el evento que permite mover el drag
-            Se suelta el drag
-        } 
-    }
-
-
-
 */
-
 //--Proyecto: Colocar las figuras correstas en su posicion
 
 //Se inicician los canvas de las figuras iniciales
@@ -32,6 +14,9 @@ const greyCross = document.getElementById("greyCross");
 
 //Posible elemetno sobre el que estemeos dejando el elemento drageable
 let currentDroppable = null;
+
+//Contador para saber cuando todas las piezas esten organizadas
+let piecesCount = 0;
 
 //Funcion para crear nuevas piezas
 function createPiece(idName){
@@ -88,7 +73,6 @@ function createPiece(idName){
                 }
             }
         }
-
         function enterDroppable(dropable, drag){
             console.log("Entrando a " + dropable.id)
             let dropId = dropable.id.slice(4);
@@ -96,19 +80,13 @@ function createPiece(idName){
 
             console.log(dropable.offsetTop);
             console.log(dropable.offsetLeft);
-
-            if (dropId == dragId){
-                dropable.style.background = 'green';
-            }
         }
-        
         function leaveDroppable(elem){
             console.log("Saliendo de " + elem.id)
             elem.style.background = '';
         }
-
         document.addEventListener('mousemove', onMouseMove);       
-        
+    
         //Funcion, que se activa cuando se suelta el mouse
         function onMouseUp(){
 
@@ -124,6 +102,9 @@ function createPiece(idName){
                 console.log(`Se solto la tecla ${drag}  en: ${drop}`);
                 
                 if(drop == drag){
+
+                    piecesCount++;
+
                     target.style.position = 'absolute';
                     
                     let dragPos =  currentDroppable.getBoundingClientRect();
@@ -132,6 +113,12 @@ function createPiece(idName){
                     target.style.top = dragPos.top + 'px';
 
                     newPiece.removeEventListener('mousedown', onClickListener)
+                
+                    if (piecesCount == 6){
+
+                        alert("FELICIDADES! ORGANIZASTE LAS PIEZAS");
+
+                    }
                 }
             }
             
@@ -329,7 +316,6 @@ function startPage(){
 }
 
 startPage();
-
 
 document.body.appendChild(dragCircle);
 document.body.appendChild(dragSquare);

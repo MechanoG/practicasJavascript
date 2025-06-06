@@ -9,6 +9,15 @@ const roads = [
     "Plaza de Mercado-Oficina de Correos", "Plaza de Mercado-Tienda",
     "Plaza de Mercado-Ayuntamiento", "Tienda-Ayuntamiento"
 ];
+//Array de ruta del robot
+const mailRoute = [
+    "Casa de Alice", "Cabaña", "Casa de Alice", "Casa de Bob",
+    "Ayuntamiento", "Casa de Daria", "Casa de Ernie",
+    "Casa de Grete", "Tienda", "Casa de Grete", "Granja",
+    "Plaza del Mercado", "Oficina de Correos"
+];
+
+
 //La reed de carreteras forman un grafico
 //Se conviete la liste de carreteras en una structura de datos que 
 // diga que se puede alcnazar desde cada lugar.
@@ -30,6 +39,8 @@ function buildGraph(edges){
 }
 
 const roadGraph = buildGraph(roads);
+
+//console.log(roadGraph);
 
 //El robot se mueve por el pueblo, recoge las paquetes y 
 // los entrega en su destino,
@@ -68,13 +79,14 @@ let next=first.move("Casa de Alice");
 console.log(next.place);
 console.log(next.parcels);
 console.log(first.place);
+console.log(first.parcels);
 
 //Obervacion
 //robot devuelce un objeto que contiene tanto la direccion 
 //en la que quiere moverse, como un valor de memoria que se
 //le dara la proxima vez que se llame.
 
-function runRobot(state,robot,memory){
+function runRobot(state, robot, memory){
     for(let turn = 0;; turn++){
         if (state.parcels.length == 0){
             console.log(`Terminado en ${turn} turnos`);
@@ -93,6 +105,31 @@ function randomPick(array){
     return array[choice];
 }
 
-function randomPick(state){
+//  Rombot de caminata aleatoria
+function randomRobot(state){
     return {direction: randomPick(roadGraph[state.place])};
 }
+
+//Robot con ruta fija
+function routeRobot(state, memory){
+    if(memory.length == 0 ){
+        memory = mailRoute;
+    }
+    return {direction: memory[0], memory: memory.slice(1)};
+}
+
+VillageState.random = function(parcelsCount=5){
+    let parcels = [];
+    for (let i = 0; i < parcelsCount; i++){
+        let address = randomPick(Object.keys(roadGraph));
+        let place;
+        do{
+            place = randomPick(Object.keys(roadGraph));            
+        }while(place == address);
+        parcels.push({place, address});
+    }
+    return new VillageState("Oficina de Correos", parcels);
+}
+
+
+runRobot(VillageState.random(), routeRobot, []);

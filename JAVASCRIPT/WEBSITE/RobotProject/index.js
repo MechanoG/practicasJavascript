@@ -40,7 +40,7 @@ function buildGraph(edges){
 
 const roadGraph = buildGraph(roads);
 
-//console.log(roadGraph);
+console.log(roadGraph);
 
 //El robot se mueve por el pueblo, recoge las paquetes y 
 // los entrega en su destino,
@@ -118,7 +118,7 @@ function routeRobot(state, memory){
     return {direction: memory[0], memory: memory.slice(1)};
 }
 
-VillageState.random = function(parcelsCount=5){
+VillageState.random = function(parcelsCount = 5){
     let parcels = [];
     for (let i = 0; i < parcelsCount; i++){
         let address = randomPick(Object.keys(roadGraph));
@@ -126,10 +126,38 @@ VillageState.random = function(parcelsCount=5){
         do{
             place = randomPick(Object.keys(roadGraph));            
         }while(place == address);
+        console.log(place);
+        console.log(address);
         parcels.push({place, address});
     }
     return new VillageState("Oficina de Correos", parcels);
 }
 
+//Funcion para encontrar ruta mas corta 
+function findRoute(graph, from, to){
+    let work = [{at: from, route: []}];
+    for (let i = 0; i < work.length; i++){
+        let {at, route} = work[i];
+        for(let place of graph[at]){
+            if (place==to) return route.concat(place);
+            if(!work.some(w=>w.at == place)){
+                work.push({at: place, route: route.concat(place)});
+            }
+        }
+    }
+}
 
-runRobot(VillageState.random(), routeRobot, []);
+//Function
+function goalOrienedRobot({place, parcels}, route){
+    if (route.length == 0){
+        let parcel = parcels[0];
+        if(parcel.place != place){
+            route = findRoute(roadGraph, place, parcel.place);
+        }else {
+            route = findRoute(roadGraph, place, parcel.address);
+        }
+    }
+    return {direction: route[0], memory: route.slice(1)};
+}
+
+runRobot(VillageState.random(), goalOrienedRobot,[]);

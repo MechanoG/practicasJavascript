@@ -40,7 +40,7 @@ function buildGraph(edges){
 
 const roadGraph = buildGraph(roads);
 
-console.log(roadGraph);
+console.log(roadGraph)
 
 //El robot se mueve por el pueblo, recoge las paquetes y 
 // los entrega en su destino,
@@ -64,6 +64,8 @@ class VillageState{
                 if(p.place != this.place) return p;
                 return {place:destination, address: p.address};    
             }).filter(p=> p.place != p.address);
+            //  Filtra  parcels, de forma que cuando un parcel llega asu destino,
+            // no es devuelto a la lista de parcels, lo que se considera como entregado
             return new VillageState(destination, parcels);
         }
     }
@@ -74,12 +76,10 @@ let first = new VillageState(
     [{place: "Oficina de Correos", address: "Casa de Alice"}]
 );
 
-let next=first.move("Casa de Alice");
-
-console.log(next.place);
-console.log(next.parcels);
-console.log(first.place);
-console.log(first.parcels);
+console.log(first);
+//console.log(next.parcels);
+// console.log(first.place);
+//console.log(first.parcels);
 
 //Obervacion
 //robot devuelce un objeto que contiene tanto la direccion 
@@ -87,6 +87,7 @@ console.log(first.parcels);
 //le dara la proxima vez que se llame.
 
 function runRobot(state, robot, memory){
+
     for(let turn = 0;; turn++){
         if (state.parcels.length == 0){
             console.log(`Terminado en ${turn} turnos`);
@@ -94,6 +95,8 @@ function runRobot(state, robot, memory){
         }
         let action = robot(state, memory);
         state = state.move(action.direction);
+        window.alert(state.direction)
+        console.log("Parcels:", state.parcels);
         memory = action.memory;
         console.log(`Movido a ${action.direction}`);
     }
@@ -160,4 +163,53 @@ function goalOrienedRobot({place, parcels}, route){
     return {direction: route[0], memory: route.slice(1)};
 }
 
-runRobot(VillageState.random(), goalOrienedRobot,[]);
+//Function that is a optimized version of goal oriented versoin
+function optimizedRobot({place, parcels}, route){
+    if (route.length == 0){
+        if (!parcels.some(p => p.place == place)){
+            parcels.forEach(p => p.path = findRoute(roadGraph, place, p.place));
+            route = parcels.reduce((x,y) =>{
+                if(x.path.length <= y.path.length) return x;
+                else return y;
+            }).path;
+        }else{
+            let parcel = parcels.filter(p => p.place == place);
+            parcel.forEach(n => n.path = findRoute(roadGraph, place, n.address));
+            route = parcel.reduce((x,y) => {
+                    if(x.path.length <= y.path.length) return x;
+                    else return y;
+            }).path
+        }
+    }
+    return {direction: route [0], memory:route.slice(1)};
+}
+
+function pickFirstRobot({place, parcels}, route){
+    if (route.length === 0){
+        let notPicked = parcels.filter(p => p.place !==place);
+        let pickedPar = parcels.filter (p => p.place === place );
+
+        if (notPicked.length > 0){
+
+            notPicked.forEach(n => n.path = findRoute(roadGraph, place, n.place));
+            let nextDirection = notPicked.reduce((x,y) => {
+                if (x.path.length <= y.path.length) return x;
+                else return y;
+            });
+            route = nextDirection.path;
+            
+        }else if(pickedPar > 0){
+
+            pickedPar.forEach(n => n.path = findRoute(roadGraph, place, n.address));
+            let nextDirection = notPicked.reduce((x,y) => {
+                if (x.path.length <= y.path.length) return x;
+                else return y;
+            });
+            route = nextDirection.path;
+        }
+    }   
+    return {direction: route [0], memory:route.slice(1)};
+}
+
+runRobot(VillageState.random(), pickFirstRobot, []);
+

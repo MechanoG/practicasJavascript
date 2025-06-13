@@ -198,7 +198,7 @@ function pickFirstRobot({place, parcels}, route){
             });
             route = nextDirection.path;
             
-        }else if(pickedPar > 0){
+        }else {
 
             pickedPar.forEach(n => n.path = findRoute(roadGraph, place, n.address));
             let nextDirection = notPicked.reduce((x,y) => {

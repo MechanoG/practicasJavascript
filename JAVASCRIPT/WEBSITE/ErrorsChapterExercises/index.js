@@ -52,3 +52,34 @@ const box = new class{
         return this.#content;
     }
 };
+
+function withBoxUnlocked(body){
+    box.unlock();
+    try{
+         return body()
+    }finally{
+        box.lock();
+    }
+}
+
+withBoxUnlocked(() => {
+    box.content.push("Pieza de Oro");
+    box.content.push("Espada Plata");
+}
+);
+
+withBoxUnlocked(()=>{
+    for (let i = 0; i < box.content.length; i++){
+        console.log(`Treasure: ` + box.content[i] );
+    }
+});
+
+try{
+withBoxUnlocked(()=>{
+    throw new Error("Pirates on the horizaon, retreat!!!")})
+
+}catch (e) {
+    console.log("Error raised: ", e);
+}
+
+console.log("Estado de la caja: ", box.locked);

@@ -66,8 +66,35 @@ console.log(regex6.test("BEET"));
 */
 
 /*Exercise 2: Estilo de comillas */
-
+/*
 let text = "'I'm the cook,' he said, 'it's my job.'";
 
-console.log(text.replace(//g, `"`));
+console.log(text.replace(/^'|(\W)'|'(\W)|'$/ug,  "$1\"$2"));
+*/
+//Nota: \W implica un caracter no de palabra
 
+//Ejercicio 3: Numeros Otra Vez:
+/*Suports:
+-Optional minus or plus sign in front of the number
+-The Decimal Dot
+-Notacion exponencial 5e-3 or 1E10  with an optional sing in front of
+the exponent.
+- not necesary for numbers before or after the dot,
+but a lone dot isnt.
+*/
+
+let number = /^([+|-]*\d+[^a]).*(\d)*$/;
+
+// Tests:
+for (let str of ["1", "-1", "+15", "1.55", ".5", "5.",
+                 "1.3e2", "1E-4", "1e+12"]) {
+  if (!number.test(str)) {
+    console.log(`Failed to match '${str}'`);
+  }
+}
+for (let str of ["1a", "+-1", "1.2.3", "1+1", "1e4.5",
+                 ".5.", "1f5", "."]) {
+  if (number.test(str)) {
+    console.log(`Incorrectly accepted '${str}'`);
+  }
+}

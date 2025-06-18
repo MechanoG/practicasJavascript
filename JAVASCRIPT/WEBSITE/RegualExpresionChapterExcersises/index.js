@@ -83,7 +83,7 @@ the exponent.
 but a lone dot isnt.
 */
 
-let number = /^([+|-]*\d+[^a]).*(\d)*$/;
+let number = /^[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$/;
 
 // Tests:
 for (let str of ["1", "-1", "+15", "1.55", ".5", "5.",

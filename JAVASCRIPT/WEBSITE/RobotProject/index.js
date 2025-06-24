@@ -1,3 +1,5 @@
+import { nodes } from "./Module1";
+
 //Robot de correo que recoge y deja paquetes
 //Meadowfield, 11 lugares con 14 carreteras entre ellas
 const roads = [
@@ -38,7 +40,7 @@ function buildGraph(edges){
     return graph;
 }
 
-const roadGraph = buildGraph(roads);
+const roadGraph = nodes();
 
 console.log(roadGraph)
 

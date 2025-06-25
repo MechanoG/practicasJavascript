@@ -1,0 +1,54 @@
+//Proyecto de lenguaje EGG
+
+//Analisis Sintactico
+/*
+Analizador sintactico:programa que lee un fragmento de texto y 
+produce una estructura de datos que refleja la estructura delprograma 
+contenido en ese texto
+*/
+
+/*recibe una cadena como entrada, devuelve un objeto con la estructura
+de datos */
+function parseExpressions(program){
+    program = skipSpace(program);
+    let match, expr;
+    if (match = /^"([^"]*)"/.exec(program)){
+        expr = {type: "value", value: match[1]};
+    }else if(match = /^\d+\b/.exec(program)){
+        expr = {type: "value", value:Number(match[0])};
+    }else if (match = /^[^\s(),#"]+/.exec(program)){
+        expr = {type: "word", name:(match[0])};
+    }else{
+        throw new SyntaxError("Sintaxis inesperada:" + program);
+    }
+
+    return parseApply(expr, program.slice(match[0].length));
+}
+
+function skipSpace(string){
+    let first = string.searh(/\S/);
+    if (first == -1) return"";
+    return string.slice(first);
+}
+
+function parseApply(expr, program){
+    program = skipSpace(program);
+    if (program[0] != "("){
+        return {expr: expr, rest: program}
+    }
+
+    program = skipSpace(program.slice(1));
+    expr= {type: "aply", operator: expr, args:[]}
+    while (program[0] !=")"){
+        let arg= parseExpressions(program);
+        expr.args.push(arg.expr);
+        program = skipSpace(arg.rest);
+        if (program[0] == ","){
+            program = skipSpace(program.slice(1));
+        }else if (program[0] != ")"){
+            throw new SyntaxError("Se esperaba ',' o ')'");
+        }
+    }
+
+    return parseApply(expr, program.slice(1));
+}

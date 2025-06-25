@@ -95,15 +95,14 @@ activityTablePromises(6); */
   on the failure reason from the failing promise.
 
 //Problemas en la implementacion
-
-
-  */ 
+*/ 
 
 function Promise_all(promises) {
   return new Promise((resolve, reject) => {
+    
     let results = [];
-
     let pending = promises.length;
+    
     for (let i = 0; i < promises.length; i++){
 
       promises[i].then(result =>{

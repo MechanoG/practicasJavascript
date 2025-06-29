@@ -14,14 +14,31 @@ function parseExpression(program) {
   return parseApply(expr, program.slice(match[0].length));
 }
 
-function skipSpace(string) {
+/*function skipSpace(string) {
   let first = string.search(/\S/);
 
   //*Si no encuentra un espacio otro caracter aparte de 
-  espacio
+  //espacio
   if (first == -1) return "";
   return string.slice(first);
+}*/
+
+function skipSpace(string) {
+  let skipable = string.match(/^(\s│#.*)*/)
+  return string.slice(skipable[0].length);
 }
+
+/*esplicacion de estudio*/
+/*skipable es una variable, que almacenara 
+la primera instancia que se encuentre de un string
+quw comience con un espacio, o que comientce con un
+"#" y termine en cualquier caracter a execpcion de un 
+salto de linea
+
+Despues devuelve un estring correspondiente al string 
+inicial, al que se le corto desde el inicio la 
+longitud del primer string almacenado en skipable 
+*/
 
 function parseApply(expr, program) {
   program = skipSpace(program);
@@ -165,6 +182,7 @@ specialForms.fun = (args, scope) => {
   };
 };
 
+/*
 run(`
 do(define(total, 0),
    define(count, 1),
@@ -189,6 +207,7 @@ do(define(pow, fun(base, exp,
 `);
 // → 1024
 
+*/
 //Exercise Arrays
 
 // Modify these definitions...
@@ -199,17 +218,7 @@ topScope.length = array => array.length;
 
 topScope.element = (array, i) => array[i];
 
-run(`
-do(define(sum, fun(array,
-     do(define(i, 0),
-        define(sum, 0),
-        while(<(i, length(array)),
-          do(define(sum, +(sum, element(array, i))),
-             define(i, +(i, 1)))),
-        sum))),
-   print(sum(array(1, 2, 3))))
-`);
-// → 6
+
 
 console.log("///////////////////SEPARADOR////////////////////")
 

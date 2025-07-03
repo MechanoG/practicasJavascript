@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plarform Game</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
-    
-<script src="index.js">
-    
-</script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Tiltle-->
+        <title>Platform Game │ EloquentJavaScript</title>
+        
+        <!-- Scripts -->
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="levels.js"></script>
+         
+        <!-- CSS -->
+        <link 
+            rel="stylesheet" 
+            type = "text/css"
+            href="index.css"
+
+        />
+    </head>
+    <body>
+        
+        <script>
+            // let display = new DOMDisplay(document.body, simpleLevel);
+			// display.syncState(State.start(simpleLevel));
+			runGame(GAME_LEVELS, DOMDisplay);
+        </script>
+    </body>
 </html>

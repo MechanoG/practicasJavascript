@@ -16,6 +16,7 @@
 .coin{background: rgb(241, 229, 89);}
 
 .player{background: rgb(64, 64, 64);}
+.monster {background: rgb(3, 59, 20);}
 
 .lost .player{
     background: rgb(160, 64, 64);

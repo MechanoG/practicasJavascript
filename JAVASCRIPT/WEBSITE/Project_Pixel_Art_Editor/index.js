@@ -152,16 +152,16 @@ class PixelEditor {
     }, this.canvas.dom, elt("br"),
                    ...this.controls.reduce(
                      (a, c) => a.concat(" ", c.dom), []));
+                   
   }
 
   keyDown(event, config){
     if(event.code == 'KeyZ' && (event.ctrlKey || event.metaKey )){
-      console.log("UNDO")
-      dispatch()
+      let {dispatch} = config;
+      dispatch({undo : true });
     }
-    
   }
-  
+
   syncState(state) {
     this.state = state;
     this.canvas.syncState(state.picture);

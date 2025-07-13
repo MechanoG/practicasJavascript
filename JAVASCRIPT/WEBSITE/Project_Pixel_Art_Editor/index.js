@@ -46,6 +46,7 @@ a click event handler*/
 
 const scale = 10;
 
+/////////////Exercise 2: Efficient Drawing - Start//////////////////
 class PictureCanvas {
   constructor(picture, pointerDown) {
     this.dom = elt("canvas", {
@@ -54,12 +55,14 @@ class PictureCanvas {
     });
     this.syncState(picture);
   }
+
   syncState(picture) {
     if (this.picture == picture) return;
     this.picture = picture;
     drawPicture(this.picture, this.dom, scale);
   }
 }
+
 
 /*Sets the size of the canvas based on the scale and 
 picture size and fills it whit a series of squares, one 
@@ -77,6 +80,8 @@ function drawPicture(picture, canvas, scale) {
     }
   }
 }
+
+/////////////////Excersice-2-end///////////////////////////////////
 
 PictureCanvas.prototype.mouse = function(downEvent, onDown) {
   if (downEvent.button != 0) return;
@@ -129,7 +134,7 @@ PictureCanvas.prototype.touch = function(startEvent,
 //its constructor.
 
 /*Excercise 1
-Add key shortcut CTRL-Z
+Add key shortcut CTRL-Z -- State: Acomplished
 
 */
 

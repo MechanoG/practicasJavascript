@@ -47,6 +47,9 @@ a click event handler*/
 const scale = 10;
 
 /////////////Exercise 2: Efficient Drawing - Start//////////////////
+/*
+  -The actual implemetation repaint all the pixels on the
+   canvas, event if is not necesary */ 
 class PictureCanvas {
   constructor(picture, pointerDown) {
     this.dom = elt("canvas", {
@@ -56,18 +59,32 @@ class PictureCanvas {
     this.syncState(picture);
   }
 
+  //Change this method
   syncState(picture) {
+    //Maneja que se dibuje solo cuando hay  la nueva picture 
     if (this.picture == picture) return;
-    this.picture = picture;
-    drawPicture(this.picture, this.dom, scale);
+    if (!this.picture){
+      console.log("na hay picture inicial"); 
+      this.picture = picture;
+      drawPicture(this.picture,this.dom, scale); 
+    }else{
+      let newPicture = picture;
+      
+      updatePicture(this.picture, newPicture, this.dom, scale);
+     
+    
+    }
+    
   }
 }
-
 
 /*Sets the size of the canvas based on the scale and 
 picture size and fills it whit a series of squares, one 
 for each pixel*/
 
+//You may want to use or change this as well
+
+//Esto no funcionara de nada mientras que no logre 
 function drawPicture(picture, canvas, scale) {
   canvas.width = picture.width * scale;
   canvas.height = picture.height * scale;
@@ -75,10 +92,38 @@ function drawPicture(picture, canvas, scale) {
 
   for (let y = 0; y < picture.height; y++) {
     for (let x = 0; x < picture.width; x++) {
+
+      
       cx.fillStyle = picture.pixel(x, y);
       cx.fillRect(x * scale, y * scale, scale, scale);
     }
   }
+}
+
+function updatePicture(picture, picture2, canvas, scale){
+  console.log("Se actualizo el update");
+  canvas.width = picture.width * scale;
+  canvas.height = picture.height * scale;
+  let cx = canvas.getContext("2d");
+  let newPixels = new Array;
+
+  for (let y = 0; y < picture2.height; y++) {
+    for (let x = 0; x < picture2.width; x++) {
+
+      if(picture.pixel(x,y) != picture2.pixel(x,y)){
+        newPixels.push(picture2.pixel(x,y));
+
+        cx.fillStyle = picture2.pixel(x, y);
+        cx.fillRect(x * scale, y * scale, scale, scale);
+
+
+      }
+            
+    }
+  }
+  
+  return newPixels;
+  
 }
 
 /////////////////Excersice-2-end///////////////////////////////////

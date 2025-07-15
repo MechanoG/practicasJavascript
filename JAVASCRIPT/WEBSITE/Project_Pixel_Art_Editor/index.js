@@ -101,28 +101,22 @@ function drawPicture(picture, canvas, scale) {
 }
 
 function updatePicture(picture, picture2, canvas, scale){
-  console.log("Se actualizo el update");
+  
   canvas.width = picture.width * scale;
   canvas.height = picture.height * scale;
   let cx = canvas.getContext("2d");
-  let newPixels = new Array;
+  
 
   for (let y = 0; y < picture2.height; y++) {
     for (let x = 0; x < picture2.width; x++) {
 
       if(picture.pixel(x,y) != picture2.pixel(x,y)){
-        newPixels.push(picture2.pixel(x,y));
-
+        
         cx.fillStyle = picture2.pixel(x, y);
         cx.fillRect(x * scale, y * scale, scale, scale);
-
-
       }
-            
     }
   }
-  
-  return newPixels;
   
 }
 
@@ -180,9 +174,7 @@ PictureCanvas.prototype.touch = function(startEvent,
 
 /*Excercise 1
 Add key shortcut CTRL-Z -- State: Acomplished
-
 */
-
 class PixelEditor {
   constructor(state, config) {
     let {tools, controls, dispatch} = config;
@@ -269,6 +261,45 @@ function rectangle(start, state, dispatch) {
   }
   drawRectangle(start);
   return drawRectangle;
+}
+////////Ejercicio 3 ////////// Draw a circle
+function circle(center, state, dispatch) {
+  function drawCircle(pos) {
+    let xCenter =  Math.min(center.x, pos.x);
+    let yCenter = Math.min(center.x, pos.x);
+    let xActual =  Math.max(center.x, pos.x);
+    let yActual = Math.min(center.x, pos.x);
+    let radio = getRatio(xCenter, xActual, yCenter, yActual);
+    let drawn = [];
+
+        
+    console.log(`Circulo X: ${xActual}  Y:  ${yActual}`);
+    console.log(`centro X: ${xCenter}  Y:  ${yCenter}`);
+
+    console.log(`Radio:  ${radio}`);
+      
+    for (let y = yCenter; y <= yActual; y++) {
+      for (let x = xCenter; x <= xActual; x++) {
+        pontRatio = getRatio(xCenter, yCenter, x, y);
+        if (pontRatio <= radio){
+          drawn.push({x,y, color: state.color});
+        }
+      }
+    }
+    dispatch({picture: state.picture.draw(drawn)});
+    
+    
+  }
+
+  function getRatio(x1,y1,x2,y2){
+      const deltaX = x2 - x1;
+      const deltay = y2 - y1;
+      return Math.sqrt(deltaX * deltaX + deltay * deltay) 
+
+  }
+  drawCircle(center);
+  return drawCircle;
+  
 }
 
 const around = [{dx: -1, dy: 0}, {dx: 1, dy: 0},

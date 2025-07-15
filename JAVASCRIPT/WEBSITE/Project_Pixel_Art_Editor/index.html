@@ -17,9 +17,14 @@
 
     <div></div>
     <script>
-        document.querySelector("div")
-    .appendChild(startPixelEditor({}))
-        </script>
+        
+    
+
+  let dom = startPixelEditor({
+    tools: {...baseTools, circle}
+  });
+  document.querySelector("div").appendChild(dom);
+    </script>
     
 </body>
 </html>

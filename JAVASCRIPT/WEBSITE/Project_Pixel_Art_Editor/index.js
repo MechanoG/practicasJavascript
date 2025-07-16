@@ -265,27 +265,53 @@ function rectangle(start, state, dispatch) {
 ////////Ejercicio 3 ////////// Draw a circle
 function circle(center, state, dispatch) {
   function drawCircle(pos) {
-    let xCenter =  Math.min(center.x, pos.x);
-    let yCenter = Math.min(center.x, pos.x);
-    let xActual =  Math.max(center.x, pos.x);
-    let yActual = Math.min(center.x, pos.x);
-    let radio = getRatio(xCenter, xActual, yCenter, yActual);
-    let drawn = [];
 
+    /*
+    let xCenter =  Math.min(center.x, pos.x);
+    let yCenter = Math.min(center.y, pos.y);
+    
+    let xActual =  Math.max(center.x, pos.x);
+    let yActual = Math.max(center.y, pos.y);
+    */
+
+    let xCenter =  center.x; 
+    let yCenter = center.y;
+    
+    let xActual =  pos.x;
+    let yActual = pos.y;
+
+
+    let radio = Math.floor(getRatio(xCenter, yCenter ,xActual , yActual));
+    let drawn = [];
+    
+   let x =  center.x;
+    let y = center.y;
+   
         
     console.log(`Circulo X: ${xActual}  Y:  ${yActual}`);
     console.log(`centro X: ${xCenter}  Y:  ${yCenter}`);
+    console.log(`radio: ${radio}`);
 
     console.log(`Radio:  ${radio}`);
+
+    //drawn.push({xCenter, yCenter, color: state.color});
+    drawn.push({x, y, color: state.color});
+
+    x =  pos.x;
+    y = pos.y;
+
+    drawn.push({x, y, color: state.color});
+
+
       
-    for (let y = yCenter; y <= yActual; y++) {
-      for (let x = xCenter; x <= xActual; x++) {
-        pontRatio = getRatio(xCenter, yCenter, x, y);
-        if (pontRatio <= radio){
-          drawn.push({x,y, color: state.color});
-        }
+    /*
+    for (let y = yCenter; y <= circunferencia; y++) {
+      for (let x = xCenter; x <= circunferencia; x++) {
+             
+      drawn.push({x,y, color: state.color});
+        
       }
-    }
+    }*/
     dispatch({picture: state.picture.draw(drawn)});
     
     

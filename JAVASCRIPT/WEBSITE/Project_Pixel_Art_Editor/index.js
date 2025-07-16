@@ -272,20 +272,9 @@ function circle(center, state, dispatch) {
     let xActual =  pos.x;
     let yActual = pos.y;
 
-
     let radio = Math.floor(getRatio(xCenter, yCenter ,xActual , yActual));
     let drawn = [];
     
-    let x =  center.x;
-    let y = center.y;
-
-    drawn.push({x,y, color: state.color});
-   
-        
-    console.log(`Circulo X: ${xActual}  Y:  ${yActual}`);
-    console.log(`centro X: ${xCenter}  Y:  ${yCenter}`);
-    console.log(`Radio:  ${radio}`);
-
     //drawn.push({xCenter, yCenter, color: state.color});
     
     let supy = yCenter + radio;
@@ -293,10 +282,6 @@ function circle(center, state, dispatch) {
     let supx = xCenter + radio;
     let minx = xCenter - radio; 
     
-    console.log(supx);
-    console.log(supy);
-    console.log(minx);
-    console.log(miny);
 
     for (let y = miny; y <= supy; y++) {
       for(let x = minx; x <= supx; x++){
@@ -311,22 +296,7 @@ function circle(center, state, dispatch) {
 
       }
     }
-
-
-
-    /*Mantiene en el cuadro en elpuntero
-    */ 
-    x =  pos.x;
-    y = pos.y;
-
-    drawn.push({x, y, color: state.color});
-
-
-      
-    
     dispatch({picture: state.picture.draw(drawn)});
-    
-    
   }
 
   function getRatio(x1,y1,x2,y2){

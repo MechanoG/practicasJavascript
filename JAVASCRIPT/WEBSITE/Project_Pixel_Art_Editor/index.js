@@ -266,14 +266,6 @@ function rectangle(start, state, dispatch) {
 function circle(center, state, dispatch) {
   function drawCircle(pos) {
 
-    /*
-    let xCenter =  Math.min(center.x, pos.x);
-    let yCenter = Math.min(center.y, pos.y);
-    
-    let xActual =  Math.max(center.x, pos.x);
-    let yActual = Math.max(center.y, pos.y);
-    */
-
     let xCenter =  center.x; 
     let yCenter = center.y;
     
@@ -284,19 +276,46 @@ function circle(center, state, dispatch) {
     let radio = Math.floor(getRatio(xCenter, yCenter ,xActual , yActual));
     let drawn = [];
     
-   let x =  center.x;
+    let x =  center.x;
     let y = center.y;
+
+    drawn.push({x,y, color: state.color});
    
         
     console.log(`Circulo X: ${xActual}  Y:  ${yActual}`);
     console.log(`centro X: ${xCenter}  Y:  ${yCenter}`);
-    console.log(`radio: ${radio}`);
-
     console.log(`Radio:  ${radio}`);
 
     //drawn.push({xCenter, yCenter, color: state.color});
-    drawn.push({x, y, color: state.color});
+    
+    let supy = yCenter + radio;
+    let miny = yCenter - radio;
+    let supx = xCenter + radio;
+    let minx = xCenter - radio; 
+    
+    console.log(supx);
+    console.log(supy);
+    console.log(minx);
+    console.log(miny);
 
+    for (let y = miny; y <= supy; y++) {
+      for(let x = minx; x <= supx; x++){
+
+        let pointRadio = Math.floor(getRatio(xCenter, yCenter ,x, y));
+        
+        if (pointRadio <= radio){
+          drawn.push({x,y, color: state.color});
+        }
+        
+        
+
+      }
+    }
+
+
+
+    /*Mantiene en el cuadro en elpuntero
+    */ 
     x =  pos.x;
     y = pos.y;
 
@@ -304,14 +323,7 @@ function circle(center, state, dispatch) {
 
 
       
-    /*
-    for (let y = yCenter; y <= circunferencia; y++) {
-      for (let x = xCenter; x <= circunferencia; x++) {
-             
-      drawn.push({x,y, color: state.color});
-        
-      }
-    }*/
+    
     dispatch({picture: state.picture.draw(drawn)});
     
     
@@ -468,7 +480,7 @@ class UndoButton {
 const startState = {
   tool: "draw",
   color: "#000000",
-  picture: Picture.empty(60, 30, "#f0f0f0"),
+  picture: Picture.empty(600, 300, "#f0f0f0"),
   done: [],
   doneAt: [0]
 };

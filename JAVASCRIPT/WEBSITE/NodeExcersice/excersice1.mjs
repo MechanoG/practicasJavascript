@@ -1,23 +1,50 @@
-function regExSearcher(reExp, compExp){
-    
+//Necesito una funcion que me permita 
+import { error } from "console";
+import {readdir} from "fs";
+
+function regExSearcher(reExp, searchFiles){    
     console.log(`${reExp}`);
-    console.log(`${compExp}`);
+    console.log(`${searchFiles}`);
 
     let esxpreRegular = new RegExp(reExp);
+       
+    let result = expComp.match(esxpreRegular);
 
-    let result = compExp.match()
+    let findedFiles = new Array;
+
+    console.log(result);
     
-    if (result.lengt > 0){
-        console.log("Si se cumple con la expresion Regular")
+    if (result.length > 0){
+        console.log("Se encontraron archivos concidentes")
     }else{
-        console.log("No se cumple con la expresion Regular")
-    }
-
-    
-        
+        console.log("No se encontraron archivos")
+    }      
 }
 
-let argument1 = process.argv[2];
-let argument2 = process.argv[3];
-regExSearcher(argument1, argument2);
+
+let baseDirectory = process.cwd();
+
+readdir(baseDirectory, (err,file)=>{
+    if(err){
+        console.log("Error reading directory:", err);
+        return;
+    }
+    console.log('Contents of myDirectory', file);
+});
+
+
+
+let regEx = process.argv[2];
+let files = process.argv.slice(3);
+
+
+console.log(`Expresion regular: ${regEx}`);
+console.log(`Archivos buscados:\n   `);
+files.forEach((file) =>{
+    console.log(`${file}`)
+} );
+
+//regExSearcher(regEx, files);
+
+
 

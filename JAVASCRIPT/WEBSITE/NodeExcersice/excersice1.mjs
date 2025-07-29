@@ -1,10 +1,12 @@
 //Necesito una funcion que me permita 
 import { error } from "console";
-import {readdir} from "fs";
+import {readdir} from "fs/promises";
 
-function regExSearcher(reExp, searchFiles){    
+
+
+function regExSearcher(reExp, searchArchives){    
     console.log(`${reExp}`);
-    console.log(`${searchFiles}`);
+    console.log(`${searchArchives}`);
 
     let esxpreRegular = new RegExp(reExp);
        
@@ -22,29 +24,24 @@ function regExSearcher(reExp, searchFiles){
 }
 
 
-let baseDirectory = process.cwd();
-
-readdir(baseDirectory, (err,file)=>{
-    if(err){
-        console.log("Error reading directory:", err);
-        return;
-    }
-    console.log('Contents of myDirectory', file);
-});
 
 
+async function main() {
+    
+    let baseDirectory = process.cwd();
+    let regEx = process.argv[2];
+    let filesToSearch = process.argv.slice(3);
+    const dirFiles = await readdir(baseDirectory);
 
-let regEx = process.argv[2];
-let files = process.argv.slice(3);
+    /*Se usa la comparacion*/
+
+    
+    
+
+} 
 
 
-console.log(`Expresion regular: ${regEx}`);
-console.log(`Archivos buscados:\n   `);
-files.forEach((file) =>{
-    console.log(`${file}`)
-} );
-
-//regExSearcher(regEx, files);
-
-
+main();
+///Obtener elementos del directorio
+///Comprobar si alguno de esos elementos concuerdan con la expresion regular.
 

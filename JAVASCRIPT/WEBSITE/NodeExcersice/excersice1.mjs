@@ -1,5 +1,6 @@
 //Necesito una funcion que me permita 
 import { error } from "console";
+import { FILE } from "dns";
 import {readdir, writeFile} from "fs/promises";
 
 /**************************************************
@@ -26,6 +27,20 @@ function regExSearcher(reExp, searchArchives){
     return expMatchet   
 }
 
+async function writeTest(archives) {
+    let archCrear = archives.map(async (file) => {
+
+        await writeFile(file, `Lorem ipsum`, (err) =>{
+            if (error) throw err;
+            console.log("Archive creted succesfully");
+        });
+
+    })
+
+    Promise.all(archCrear);
+
+}
+
 function searchCas(dirFiles, filesToSearch){
     let findCas = [];
 
@@ -49,6 +64,15 @@ async function main() {
     let baseDirectory = process.cwd();
     let regEx = process.argv[2];
     let filesToSearch = process.argv.slice(3);
+
+    const archivosPrueba = [
+        "informe_mensual_2024-06.pdf", "foto_vacaciones_playa_001.jpeg",
+        "data_clientes_VIP_Q3.csv", "utilidades_sistema_v2.1.js", "config.dev.json",
+        "articulo_tecnico-nodejs.md", "documento_legal_final.docx", "presentacion_proyecto_final.pptx",
+        "Registro_errores_20240729.log","script_de_inicio.sh","manual_usuario_es.pdf","backup_db_20240728.zip"
+    ]
+
+    writeTest(archivosPrueba);
 
     const dirFiles = await readdir(baseDirectory);
 

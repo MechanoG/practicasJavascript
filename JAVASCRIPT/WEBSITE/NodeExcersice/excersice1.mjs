@@ -1,7 +1,8 @@
 //Necesito una funcion que me permita 
 import { error } from "console";
 import { FILE } from "dns";
-import {readdir, writeFile} from "fs/promises";
+import {readdir, writeFile, stat} from "fs/promises";
+
 
 /**************************************************
  * @argument reExp String contain the regular expresion 
@@ -55,8 +56,20 @@ function searchCas(dirFiles, filesToSearch){
     return findCas;
 }
 
-async function writeAndWait(params) {
-    
+async function recorridoDir(path){
+    const dirFiles = await readdir(path);
+    console.log(dirFiles);
+
+    for (let element of dirFiles){
+
+        console.log(`Print ./${element}`)
+
+        stat(`./${element}`, (err, stats) => {
+        console.log(stats.isDirectory());
+        console.log(`Print ${element}`)
+        });
+        
+    }
 }
 
 async function main() {
@@ -75,6 +88,9 @@ async function main() {
     writeTest(archivosPrueba);
 
     const dirFiles = await readdir(baseDirectory);
+
+    console.log(`Elementos del directorio: \n`)
+    recorridoDir(baseDirectory);
 
     
     let findedRegExp = regExSearcher(regEx, dirFiles);

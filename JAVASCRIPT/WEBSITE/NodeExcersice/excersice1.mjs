@@ -14,8 +14,6 @@ function regExSearcher(reExp, searchArchives){
     
     let esxpreRegular = new RegExp(reExp);
 
-    console.log(esxpreRegular);
-
     let expMatchet = [];
 
     for (let archive of searchArchives){
@@ -63,7 +61,7 @@ async function recorridoDir(path){
         const dirFiles = await readdir(path);
 
         if (dirFiles.length==0){
-            console.log(`No directorios en ${path}`);
+            console.log(`No elementos en ${path}`);
             return;
         }
         for (let element of dirFiles){
@@ -71,14 +69,14 @@ async function recorridoDir(path){
             console.log(fullPath);
 
             try{
-                let stats = await lstat();
+                let stats = await lstat(fullPath);
                 if (stats.isDirectory()){
                     console.log(`Element ${element} es un directorio`);
                     console.log(`La ruta actual el ${path}`);
-                    console.log(`La proxima ruta es: ${fullPath}`)
+                    console.log(`La proxima ruta es: ${fullPath} \n`)
                     await recorridoDir(fullPath);
                 }else{
-                    console.log(`Element ${element} es un archivo`);
+                    console.log(`Element ${element} es un archivo \n`);
                 }
             }catch(error){
                console.error(`Error al precesar el elemento ${path}`, err); 

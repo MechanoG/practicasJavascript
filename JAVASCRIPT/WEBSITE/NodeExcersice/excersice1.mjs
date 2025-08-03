@@ -1,7 +1,8 @@
 //Necesito una funcion que me permita 
 import { error } from "console";
 import { FILE } from "dns";
-import {readdir, writeFile, stat} from "fs/promises";
+import {readdir, writeFile, stat, lstat} from "fs/promises";  //Se usa para asyncronas
+import {join} from "path";
 
 
 /**************************************************
@@ -56,20 +57,36 @@ function searchCas(dirFiles, filesToSearch){
     return findCas;
 }
 
+//usar try en everyu await
 async function recorridoDir(path){
-    const dirFiles = await readdir(path);
-    console.log(dirFiles);
+    try{
+        const dirFiles = await readdir(path);
 
-    for (let element of dirFiles){
+        if (dirFiles.length==0){
+            console.log(`No directorios en ${path}`);
+            return;
+        }
+        for (let element of dirFiles){
+            let fullPath = join(path, element)
+            console.log(fullPath);
 
-        console.log(`Print ./${element}`)
-
-        stat(`./${element}`, (err, stats) => {
-        console.log(stats.isDirectory());
-        console.log(`Print ${element}`)
-        });
-        
-    }
+            try{
+                let stats = await lstat();
+                if (stats.isDirectory()){
+                    console.log(`Element ${element} es un directorio`);
+                    console.log(`La ruta actual el ${path}`);
+                    console.log(`La proxima ruta es: ${fullPath}`)
+                    await recorridoDir(fullPath);
+                }else{
+                    console.log(`Element ${element} es un archivo`);
+                }
+            }catch(error){
+               console.error(`Error al precesar el elemento ${path}`, err); 
+            } 
+        }                         
+    }catch(err){
+        console.error(`Error al leer el directorio ${path}`, err);
+    }    
 }
 
 async function main() {
@@ -89,10 +106,14 @@ async function main() {
 
     const dirFiles = await readdir(baseDirectory);
 
-    console.log(`Elementos del directorio: \n`)
-    recorridoDir(baseDirectory);
-
-    
+    if (dirFiles.length == 0){
+        console.log(`El directorio no posee elementos\n`)    
+        
+    }else{
+        console.log(`Elementos del directorio: \n`)    
+        recorridoDir(baseDirectory);
+    }
+   
     let findedRegExp = regExSearcher(regEx, dirFiles);
     
     if (findedRegExp.length > 0){
@@ -116,7 +137,6 @@ async function main() {
     }
     
 } 
-
 
 main();
 ///Obtener elementos del directorio

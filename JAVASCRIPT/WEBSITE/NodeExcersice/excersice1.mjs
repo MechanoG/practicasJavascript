@@ -56,7 +56,10 @@ function searchCas(dirFiles, filesToSearch){
 }
 
 //usar try en everyu await
-async function recorridoDir(path){
+async function getFiles(path){
+
+    let arrayFiles = []
+
     try{
         const dirFiles = await readdir(path);
 
@@ -74,9 +77,10 @@ async function recorridoDir(path){
                     console.log(`Element ${element} es un directorio`);
                     console.log(`La ruta actual el ${path}`);
                     console.log(`La proxima ruta es: ${fullPath} \n`)
-                    await recorridoDir(fullPath);
+                    await getFiles(fullPath);
                 }else{
                     console.log(`Element ${element} es un archivo \n`);
+                    arrayFiles.push(element);
                 }
             }catch(error){
                console.error(`Error al precesar el elemento ${path}`, err); 
@@ -85,6 +89,8 @@ async function recorridoDir(path){
     }catch(err){
         console.error(`Error al leer el directorio ${path}`, err);
     }    
+
+    return arrayFiles;
 }
 
 async function main() {
@@ -100,17 +106,12 @@ async function main() {
         "Registro_errores_20240729.log","script_de_inicio.sh","manual_usuario_es.pdf","backup_db_20240728.zip"
     ]
 
-    writeTest(archivosPrueba);
+    await writeTest(archivosPrueba);
 
-    const dirFiles = await readdir(baseDirectory);
+    const dirFiles = await getFiles(baseDirectory); 
 
-    if (dirFiles.length == 0){
-        console.log(`El directorio no posee elementos\n`)    
-        
-    }else{
-        console.log(`Elementos del directorio: \n`)    
-        recorridoDir(baseDirectory);
-    }
+    console.log(dirFiles);
+    
    
     let findedRegExp = regExSearcher(regEx, dirFiles);
     

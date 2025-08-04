@@ -24,7 +24,18 @@ function regExSearcher(reExp, searchArchives){
         }
     }
 
-    return expMatchet   
+    return expMatchet;
+}
+
+function printRegEx(regExAr){
+        if (regExAr.length > 0){
+        regExAr.forEach((file) => {
+            console.log(`${file}`);
+        })
+    }else{
+        console.log("No se encontraron archivos coincidentes");
+    }
+
 }
 
 async function writeTest(archives) {
@@ -46,13 +57,25 @@ function searchCas(dirFiles, filesToSearch){
 
     filesToSearch.forEach((file) =>{
         dirFiles.forEach((dir)=>{
-            if (file.localeCompare(dir) == 0){
+            if (file === dir){
                 findCas.push(file);
             }
         })
     })
 
     return findCas;
+}
+
+function printCas(findedCas){
+    if(findedCas.length > 0 ){
+        
+        findedCas.forEach((casual)=>{
+            console.log(`${casual}`);
+        })        
+    }else{
+            console.log("No se encontro un archivo que conincida con la busqueda");
+    }
+
 }
 
 //usar try en everyu await
@@ -64,26 +87,20 @@ async function getFiles(path){
         const dirFiles = await readdir(path);
 
         if (dirFiles.length==0){
-            console.log(`No elementos en ${path}`);
             return;
         }
         for (let element of dirFiles){
             let fullPath = join(path, element)
-            console.log(fullPath);
 
             try{
                 let stats = await lstat(fullPath);
                 if (stats.isDirectory()){
-                    console.log(`Element ${element} es un directorio`);
-                    console.log(`La ruta actual el ${path}`);
-                    console.log(`La proxima ruta es: ${fullPath} \n`)
                     await getFiles(fullPath);
                 }else{
-                    console.log(`Element ${element} es un archivo \n`);
                     arrayFiles.push(element);
                 }
             }catch(error){
-               console.error(`Error al precesar el elemento ${path}`, err); 
+               console.error(`Error al procesar el elemento ${path}`, err); 
             } 
         }                         
     }catch(err){
@@ -99,6 +116,11 @@ async function main() {
     let regEx = process.argv[2];
     let filesToSearch = process.argv.slice(3);
 
+    if(!regEx){
+        console.log("Input Error: Inserte un argumento valido");
+        return;
+    }
+
     const archivosPrueba = [
         "informe_mensual_2024-06.pdf", "foto_vacaciones_playa_001.jpeg",
         "data_clientes_VIP_Q3.csv", "utilidades_sistema_v2.1.js", "config.dev.json",
@@ -108,31 +130,15 @@ async function main() {
 
     await writeTest(archivosPrueba);
 
-    const dirFiles = await getFiles(baseDirectory); 
-
-    console.log(dirFiles);
-    
+    const dirFiles = await getFiles(baseDirectory);   
    
     let findedRegExp = regExSearcher(regEx, dirFiles);
-    
-    if (findedRegExp.length > 0){
-        console.log("Coincidencias de archivos (RegEx))\n");
-        findedRegExp.forEach((file) => {
-            console.log(`REGEX COINCIDENCIA: ${file}`);
-        })
-    }else{
-        console.log("No se encontraron archivos coincidentes");
-    }
 
-    let findedCas = searchCas(dirFiles, filesToSearch);
+    printRegEx(findedRegExp);
 
-    if(findedCas.length > 0 ){
-        console.log(`BUSQUEDA DIRECTA\n`)
-        findedCas.forEach((casual)=>{
-            console.log(`DIREC COMPARISON:  ${casual}`);
-        })        
-    }else{
-            console.log("No se encontro un archivo que conincida con la busqueda");
+    if(filesToSearch.length > 0){
+        let findedCas = searchCas(dirFiles, filesToSearch);
+        printCas(findedCas);
     }
     
 } 
